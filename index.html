@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulkit - Guitarist & Musician | Official Portfolio</title>
+    <meta name="description" content="Discover Pulkit's musical journey, guitar skills, performances, and original compositions. Professional guitarist and musician portfolio.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Howler.js for Audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #d97706;
+            --secondary-color: #92400e;
+            --accent-color: #f59e0b;
+            --dark-color: #1f2937;
+            --light-color: #f3f4f6;
+        }
+        
+        body { 
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .font-display { font-family: 'Playfair Display', serif; }
+        
+        .gradient-music { 
+            background: linear-gradient(135deg, #d97706 0%, #92400e 50%, #f59e0b 100%);
+        }
+        
+        .guitar-pattern {
+            background-image: 
+                radial-gradient(circle at 25px 25px, rgba(255,255,255,0.2) 2px, transparent 0),
+                radial-gradient(circle at 75px 75px, rgba(255,255,255,0.2) 2px, transparent 0);
+            background-size: 100px 100px;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        .audio-player {
+            background: linear-gradient(45deg, #d97706, #f59e0b);
+            border-radius: 50px;
+            padding: 8px 20px;
+        }
+        
+        .guitar-string {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d97706, transparent);
+            animation: string-vibrate 2s ease-in-out infinite;
+        }
+        
+        @keyframes string-vibrate {
+            0%, 100% { transform: scaleY(1); opacity: 0.6; }
+            50% { transform: scaleY(2); opacity: 1; }
+        }
+        
+        .music-note {
+            position: absolute;
+            font-size: 20px;
+            color: #f59e0b;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        .performance-card {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border: 2px solid #d97706;
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            height: 8px;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .backdrop-blur {
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-black bg-opacity-90 backdrop-blur-lg border-b border-amber-600">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-guitar text-amber-500 text-2xl"></i>
+                    <h1 class="text-2xl font-display font-bold text-white">Pulkit</h1>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-white hover:text-amber-500 transition-colors font-medium">Home</a>
+                    <a href="#about" class="text-white hover:text-amber-500 transition-colors font-medium">About</a>
+                    <a href="#skills" class="text-white hover:text-amber-500 transition-colors font-medium">Skills</a>
+                    <a href="#music" class="text-white hover:text-amber-500 transition-colors font-medium">Music</a>
+                    <a href="#performances" class="text-white hover:text-amber-500 transition-colors font-medium">Performances</a>
+                    <a href="#contact" class="text-white hover:text-amber-500 transition-colors font-medium">Contact</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="text-white hover:text-amber-500 transition-colors">Home</a>
+                    <a href="#about" class="text-white hover:text-amber-500 transition-colors">About</a>
+                    <a href="#skills" class="text-white hover:text-amber-500 transition-colors">Skills</a>
+                    <a href="#music" class="text-white hover:text-amber-500 transition-colors">Music</a>
+                    <a href="#performances" class="text-white hover:text-amber-500 transition-colors">Performances</a>
+                    <a href="#contact" class="text-white hover:text-amber-500 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden guitar-pattern">
+        <!-- Background Music Notes -->
+        <div class="music-note top-20 left-20">♪</div>
+        <div class="music-note top-40 right-32">♫</div>
+        <div class="music-note bottom-32 left-16">♬</div>
+        <div class="music-note top-60 left-1/3">♪</div>
+        <div class="music-note bottom-20 right-20">♫</div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div data-aos="fade-up" class="mb-8">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop&crop=face" 
+                     alt="Pulkit" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-amber-500 shadow-2xl">
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white text-shadow mb-4">Pulkit</h1>
+                <p class="text-xl md:text-2xl text-amber-300 font-medium mb-8">Guitarist & Musician</p>
+                
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <span class="bg-amber-600 bg-opacity-80 px-6 py-2 rounded-full text-white font-medium">Classical Guitar</span>
+                    <span class="bg-amber-600 bg-opacity-80 px-6 py-2 rounded-full text-white font-medium">Acoustic</span>
+                    <span class="bg-amber-600 bg-opacity-80 px-6 py-2 rounded-full text-white font-medium">Electric</span>
+                    <span class="bg-amber-600 bg-opacity-80 px-6 py-2 rounded-full text-white font-medium">Composer</span>
+                </div>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="200">
+                <p class="text-lg text-white opacity-90 mb-8 max-w-2xl mx-auto">
+                    Welcome to my musical world. I weave melodies and rhythms that touch hearts and stir souls. 
+                    From classical compositions to contemporary pieces, every note tells a story.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#music" class="bg-amber-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-amber-700 transition-colors">
+                        <i class="fas fa-music mr-2"></i>Listen to My Music
+                    </a>
+                    <a href="#contact" class="border-2 border-amber-500 text-amber-500 px-8 py-3 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-colors">
+                        <i class="fas fa-calendar mr-2"></i>Book a Performance
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Guitar Strings Animation -->
+        <div class="guitar-string top-1/4 left-1/4 w-32"></div>
+        <div class="guitar-string top-1/2 right-1/4 w-40"></div>
+        <div class="guitar-string bottom-1/4 left-1/3 w-36"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-display font-bold text-gray-800 mb-4">About Me</h2>
+                <div class="w-24 h-1 bg-amber-600 mx-auto mb-8"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h3 class="text-3xl font-display font-bold text-gray-800 mb-6">My Musical Journey</h3>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        Music has been my passion since I first picked up a guitar at the age of 12. What started as curiosity 
+                        transformed into a lifelong dedication to creating and sharing beautiful melodies. My journey has taken me 
+                        through various genres, from classical Spanish guitar to contemporary acoustic compositions.
+                    </p>
+                    <p class="text-gray-700 mb-6 leading-relaxed">
+                        I believe every performance is an opportunity to connect with audiences on an emotional level. Whether 
+                        playing intimate acoustic sets or commanding stages with electric guitar, my goal is always to create 
+                        memorable experiences through music.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-600 mb-2">10+</div>
+                            <div class="text-gray-600">Years Playing</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-600 mb-2">200+</div>
+                            <div class="text-gray-600">Performances</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-left" class="relative">
+                    <img src="https://images.unsplash.com/photo-1510915361894-db8b62005d45?w=500&h=400&fit=crop" 
+                         alt="Pulkit playing guitar" class="rounded-xl shadow-2xl">
+                    <div class="absolute -bottom-6 -right-6 bg-amber-600 text-white p-4 rounded-xl">
+                        <i class="fas fa-music text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guitar Skills Section -->
+    <section id="skills" class="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-display font-bold text-gray-800 mb-4">Guitar Skills</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Mastery across various guitar styles and techniques
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Classical Guitar -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-crown text-4xl text-amber-600 mb-4"></i>
+                        <h3 class="text-xl font-display font-bold text-gray-800 mb-2">Classical Guitar</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Fingerpicking</span>
+                                <span class="text-amber-600 font-semibold">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[95%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Music Reading</span>
+                                <span class="text-amber-600 font-semibold">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acoustic Guitar -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-guitar text-4xl text-amber-600 mb-4"></i>
+                        <h3 class="text-xl font-display font-bold text-gray-800 mb-2">Acoustic Guitar</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Strumming Patterns</span>
+                                <span class="text-amber-600 font-semibold">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[92%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Chord Progressions</span>
+                                <span class="text-amber-600 font-semibold">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[88%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electric Guitar -->
+                <div class="bg-white rounded-xl p-6 shadow-lg card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center mb-6">
+                        <i class="fas fa-bolt text-4xl text-amber-600 mb-4"></i>
+                        <h3 class="text-xl font-display font-bold text-gray-800 mb-2">Electric Guitar</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Lead Guitar</span>
+                                <span class="text-amber-600 font-semibold">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[85%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-700">Effects & Pedals</span>
+                                <span class="text-amber-600 font-semibold">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="skill-bar w-[80%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Portfolio Section -->
+    <section id="music" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-display font-bold text-gray-800 mb-4">My Music</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Listen to my original compositions and covers
+                </p>
+            </div>
+            
+            <!-- Audio Player -->
+            <div class="max-w-4xl mx-auto mb-12" data-aos="fade-up">
+                <div class="bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl p-8 text-white">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-display font-bold mb-2" id="current-track">Spanish Sunset</h3>
+                        <p class="opacity-90" id="current-artist">Pulkit - Classical Guitar</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-center space-x-6 mb-6">
+                        <button id="prev-btn" class="text-white hover:text-amber-200 transition-colors">
+                            <i class="fas fa-step-backward text-xl"></i>
+                        </button>
+                        <button id="play-pause-btn" class="bg-white text-amber-600 w-16 h-16 rounded-full flex items-center justify-center hover:bg-amber-100 transition-colors">
+                            <i class="fas fa-play text-xl"></i>
+                        </button>
+                        <button id="next-btn" class="text-white hover:text-amber-200 transition-colors">
+                            <i class="fas fa-step-forward text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm opacity-90 mb-2">
+                            <span id="current-time">0:00</span>
+                            <span id="total-time">3:45</span>
+                        </div>
+                        <div class="w-full bg-white bg-opacity-30 rounded-full h-2">
+                            <div id="progress-bar" class="bg-white h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button id="volume-btn" class="text-white hover:text-amber-200 transition-colors">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="repeat-btn" class="text-white hover:text-amber-200 transition-colors">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Music Tracks -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Track 1 -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 card-hover cursor-pointer" 
+                     data-aos="fade-up" data-aos-delay="100" onclick="playTrack(0)">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=60&h=60&fit=crop&crop=face" 
+                             alt="Track 1" class="w-16 h-16 rounded-lg mr-4">
+                        <div>
+                            <h4 class="text-lg font-display font-bold text-gray-800">Spanish Sunset</h4>
+                            <p class="text-gray-600">Classical Guitar</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">3:45</span>
+                        <button class="text-amber-600 hover:text-amber-700">
+                            <i class="fas fa-play-circle text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 card-hover cursor-pointer" 
+                     data-aos="fade-up" data-aos-delay="200" onclick="playTrack(1)">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1510915361894-db8b62005d45?w=60&h=60&fit=crop&crop=face" 
+                             alt="Track 2" class="w-16 h-16 rounded-lg mr-4">
+                        <div>
+                            <h4 class="text-lg font-display font-bold text-gray-800">Acoustic Dreams</h4>
+                            <p class="text-gray-600">Acoustic Guitar</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">4:12</span>
+                        <button class="text-amber-600 hover:text-amber-700">
+                            <i class="fas fa-play-circle text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 card-hover cursor-pointer" 
+                     data-aos="fade-up" data-aos-delay="300" onclick="playTrack(2)">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face" 
+                             alt="Track 3" class="w-16 h-16 rounded-lg mr-4">
+                        <div>
+                            <h4 class="text-lg font-display font-bold text-gray-800">Electric Nights</h4>
+                            <p class="text-gray-600">Electric Guitar</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">5:21</span>
+                        <button class="text-amber-600 hover:text-amber-700">
+                            <i class="fas fa-play-circle text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performances Section -->
+    <section id="performances" class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-display font-bold mb-4">Performances</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Notable performances and events
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Performance 1 -->
+                <div class="performance-card rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-alt text-amber-500 text-2xl mr-3"></i>
+                        <div>
+                            <h4 class="text-lg font-display font-bold">Jazz Festival 2023</h4>
+                            <p class="text-gray-400">Mumbai</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Headline performance at the annual jazz festival, featuring original compositions 
+                        and jazz standards with a contemporary twist.
+                    </p>
+                    <div class="flex items-center text-amber-500">
+                        <i class="fas fa-users mr-2"></i>
+                        <span>500+ Audience</span>
+                    </div>
+                </div>
+
+                <!-- Performance 2 -->
+                <div class="performance-card rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-alt text-amber-500 text-2xl mr-3"></i>
+                        <div>
+                            <h4 class="text-lg font-display font-bold">Classical Concert</h4>
+                            <p class="text-gray-400">Delhi</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Solo classical guitar recital featuring works by Bach, Villa-Lobos, and contemporary 
+                        Indian classical compositions.
+                    </p>
+                    <div class="flex items-center text-amber-500">
+                        <i class="fas fa-users mr-2"></i>
+                        <span>300+ Audience</span>
+                    </div>
+                </div>
+
+                <!-- Performance 3 -->
+                <div class="performance-card rounded-xl p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-alt text-amber-500 text-2xl mr-3"></i>
+                        <div>
+                            <h4 class="text-lg font-display font-bold">Acoustic Night</h4>
+                            <p class="text-gray-400">Bangalore</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Intimate acoustic performance featuring original folk-inspired compositions 
+                        and covers of popular songs with unique arrangements.
+                    </p>
+                    <div class="flex items-center text-amber-500">
+                        <i class="fas fa-users mr-2"></i>
+                        <span>150+ Audience</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-display font-bold text-gray-800 mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Let's create beautiful music together
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div data-aos="fade-right">
+                    <form id="contact-form" class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                                <input type="text" id="name" name="name" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-600">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
+                                <input type="email" id="email" name="email" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-600">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject</label>
+                            <select id="subject" name="subject" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-600">
+                                <option value="">Select a subject</option>
+                                <option value="performance">Book a Performance</option>
+                                <option value="collaboration">Music Collaboration</option>
+                                <option value="lessons">Guitar Lessons</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 font-semibold mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-600"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 text-white py-3 rounded-lg hover:bg-amber-700 transition-colors font-semibold">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div data-aos="fade-left">
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-envelope text-amber-600 text-xl mr-3"></i>
+                                <h4 class="text-lg font-semibold text-gray-800">Email</h4>
+                            </div>
+                            <p class="text-gray-600">pulkit.music@email.com</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-phone text-amber-600 text-xl mr-3"></i>
+                                <h4 class="text-lg font-semibold text-gray-800">Phone</h4>
+                            </div>
+                            <p class="text-gray-600">+91 98765 43210</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl p-6 shadow-lg">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-map-marker-alt text-amber-600 text-xl mr-3"></i>
+                                <h4 class="text-lg font-semibold text-gray-800">Location</h4>
+                            </div>
+                            <p class="text-gray-600">Mumbai, India</p>
+                        </div>
+                        
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-amber-600 text-white p-3 rounded-lg hover:bg-amber-700 transition-colors">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-amber-600 text-white p-3 rounded-lg hover:bg-amber-700 transition-colors">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-amber-600 text-white p-3 rounded-lg hover:bg-amber-700 transition-colors">
+                                <i class="fab fa-spotify text-xl"></i>
+                            </a>
+                            <a href="#" class="bg-amber-600 text-white p-3 rounded-lg hover:bg-amber-700 transition-colors">
+                                <i class="fab fa-soundcloud text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <i class="fas fa-guitar text-amber-500 text-2xl"></i>
+                <h3 class="text-xl font-display font-bold">Pulkit</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Creating melodies that touch hearts</p>
+            <p class="text-gray-500 text-sm">
+                © 2024 Pulkit. All rights reserved. | Crafted with ❤️ and music
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/music-player.js"></script>
+</body>
+</html>
